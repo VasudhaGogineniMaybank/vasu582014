@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "a95c0ec6-bd7f-46dd-a0d2-b4453b7b76cf",
+		"name": "ProductAPIApplication",
+		"description": "ProductAPIApplication is a Basic CRUD application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LoginAPIRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Role is Admin\", function () {\r",
+							"    pm.expect(jsonData.data.user.role).to.eql(\"admin\");\r",
+							"    var token_value = jsonData.data.token\r",
+							"    pm.globals.set(\"token_value1\",token_value)\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var userName = pm.iterationData.get(\"emailAddressNote\")\r",
+							"var password = pm.iterationData.get(\"passwordNote\")\r",
+							"pm.variables.set(\"userName_value\",userName)\r",
+							"pm.variables.set(\"password_value\",password)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{userName_value}}\",\r\n    \"password\": \"{{password_value}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/user/signin",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user",
+						"signin"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddProductAPI_Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check if the status of the response body is success \", function () {\r",
+							"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+							"});\r",
+							"\r",
+							"var Product_Id = pm.response.json().data.id;\r",
+							"pm.globals.set(\"new_Product_id\", Product_Id)\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var prodName_Var = pm.iterationData.get(\"ProdName\")\r",
+							"pm.variables.set(\"prodName_value\",prodName_Var)\r",
+							"\r",
+							"var prodDesc_Var = pm.iterationData.get(\"prodDesc\")\r",
+							"pm.variables.set(\"prodDesc_value\",prodDesc_Var)\r",
+							"\r",
+							"var prodPrice_Var = pm.iterationData.get(\"prodPrice\")\r",
+							"pm.variables.set(\"prodPrice_value\",prodPrice_Var)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token_value1}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"prod_name\": \"{{prodName_value}}\",\r\n\r\n\"prod_desc\": \"{{prodDesc_value}}\",\r\n\r\n\"prod_price\": {{prodPrice_value}}\r\n\r\n\r\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/products",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProductAPI_Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var UpdateProdName_Var = pm.iterationData.get(\"UpdateProdName\")\r",
+							"pm.variables.set(\"UpdateProdName_value\",UpdateProdName_Var)\r",
+							"\r",
+							"var UpdateProdDesc_Var = pm.iterationData.get(\"UpdateProdDesc\")\r",
+							"pm.variables.set(\"UpdateProdDesc_value\",UpdateProdDesc_Var)\r",
+							"\r",
+							"var UpdateProdPrice_Var = pm.iterationData.get(\"UpdateProdPrice\")\r",
+							"pm.variables.set(\"UpdateProdPrice_value\",UpdateProdPrice_Var)\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token_value1}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"prod_name\": \"{{UpdateProdName_value}}\",\r\n\r\n\"prod_desc\": \"{{UpdateProdDesc_value}}\",\r\n\r\n\"prod_price\": {{UpdateProdPrice_value}}\r\n\r\n\r\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/products/{{New_Prod_id}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{New_Prod_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GETProductByIdAPI_Test",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token_value1}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/api/v1/products/{{New_Prod_id}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{New_Prod_id}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETEProductByIdAPI_Test",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_value1}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/api/v1/products/{{New_Prod_id}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{New_Prod_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

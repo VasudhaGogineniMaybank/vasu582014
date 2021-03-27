@@ -1,0 +1,19 @@
+{
+	"id": "cf35caea-ce4e-48e7-8d29-9005a8e9eab7",
+	"values": [
+		{
+			"key": "token_value1",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsYXN0X21vZGlmaWVkIjoxNjE2MjU3MTgyMjYwLCJleHBpcmVfYXQiOjE2MjE0NDExODIyNjEsInBheWxvYWQiOnsiaWQiOjIsIm5hbWUiOiJKYXRpbiBTaGFybWEiLCJlbWFpbCI6ImphdGludnNoYXJtYUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJtb2JpbGVfbnVtYmVyIjoiMTIzMTIzMTIzMSJ9fQ.dey9SVnpN8Xdz8nhk0SzCgpxjNSzXSmbOy96F40qE_M",
+			"enabled": true
+		},
+		{
+			"key": "new_Product_id",
+			"value": 14779,
+			"enabled": true
+		}
+	],
+	"name": "E2E_Postman_Test Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2021-03-26T12:53:54.650Z",
+	"_postman_exported_using": "Postman/8.0.9"
+}
