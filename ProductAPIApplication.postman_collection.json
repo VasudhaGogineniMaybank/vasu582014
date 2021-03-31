@@ -19,10 +19,7 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-							"});\r",
-							"\r",
+							
 							"pm.test(\"Role is Admin\", function () {\r",
 							"    pm.expect(jsonData.data.user.role).to.eql(\"admin\");\r",
 							"    var token_value = jsonData.data.token\r",
